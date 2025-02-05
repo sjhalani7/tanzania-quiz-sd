@@ -251,7 +251,7 @@ def process_questions_csv(csv_path):
                     if ans:
                         insert_answer(q_id, ans, False, 'hard_wrong')
 
-            # We ignore "Comments" for now
+
 
 
 # process_questions_csv(F1_QUESTIONS_CSV)
