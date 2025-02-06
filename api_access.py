@@ -1,5 +1,4 @@
 from flask import Flask, request
-import requests
 import json
 import mysql.connector
 import config
@@ -37,10 +36,33 @@ def get_subjects():
 
     for subject_number, subject_title in subjects:
         subject_json = {}
-        subject_json["subject_numbers"] = subject_number
+        subject_json["subject_id"] = subject_number
         subject_json["subject_name"] = subject_title
         return_list.append(subject_json)
     return json.dumps(return_list)
+
+@app.route('/api/forms', methods=['GET'])
+def get_forms_list():
+    subject_id = request.args.get('subject_id')
+    query_constructor = create_query(
+        select=["form_id", "name"],
+        from_table=["forms"],
+        where=[("subject_id", subject_id)]
+    )
+    query_string = query_constructor.get_query_string()
+    query_params = query_constructor.get_query_params()
+    cursor.execute(query_string, query_params)
+    forms = cursor.fetchall()
+
+    return_list = []
+    for form_id, form_name in forms: 
+        form_json = {}
+        form_json["form_id"] = form_id
+        form_json["form_name"] = form_name
+        return_list.append(form_json)
+    
+    return json.dumps(return_list)
+
 
 @app.route("/api/topics", methods=['GET'])
 def get_topics():
