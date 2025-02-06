@@ -2,3 +2,5 @@ venv/
 config.py
 data/
 *.sql
+.idea/
+__pycache__/
