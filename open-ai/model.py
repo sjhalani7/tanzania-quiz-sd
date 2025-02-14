@@ -52,9 +52,6 @@ def query_model(prompt_file, question_query):
         }
     }
     )
-    print(completion.choices[0])
+    return completion.choices[0]
 
         
-    
-
-query_model('open-ai/dev_prompt.txt')
