@@ -80,7 +80,7 @@ def get_questions():
     filtered_questions_CTE = create_query(select=["question_id", "question_text"], from_table=['questions'], join=[("filtered_objectives", "filtered_objectives.objective_id = questions.objective_id", "INNER JOIN")])
 
     main_query_constructor = create_query(
-        select=["answers.question_id", "question_text", "answer_id", "answer_text", "answer_type"], 
+        select=["answers.question_id", "question_text", "answer_id", "answer_text", "answer_type", "answers.answer_explanation"], 
         from_table=['filtered_questions'], 
         join=[("answers", "answers.question_id = filtered_questions.question_id", "INNER JOIN")]
     )
@@ -94,7 +94,7 @@ def get_questions():
     questions = get_query_results(main_query_constructor)
     question_map = {}
 
-    for question_id, question_text, answer_id, answer_text, answer_type in questions: 
+    for question_id, question_text, answer_id, answer_text, answer_type, answer_explanation in questions: 
         if question_id not in question_map:
             question_map[question_id] = {
                 "question_text": question_text,
@@ -104,7 +104,8 @@ def get_questions():
                 {
                     'answer_id': answer_id, 
                     'answer_text': answer_text,
-                    'answer_type': answer_type
+                    'answer_type': answer_type,
+                    'answer_explanation': answer_explanation
                 }
             )
     
