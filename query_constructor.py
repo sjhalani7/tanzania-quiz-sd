@@ -103,7 +103,10 @@ class QueryConstructor:
             self._query += "DISTINCT "
     
         if self._select_columns:
-            self._query += ", ".join(self._select_columns)
+            if len(self._select_columns) > 1:
+                self._query += ", ".join(self._select_columns)
+            else: 
+                self._query += self._select_columns[0]
         else:
             self._query += "* "
 

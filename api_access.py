@@ -1,23 +1,8 @@
 from flask import Flask, request
 import json
-import mysql.connector
-import config
 from query_constructor import QueryConstructor
-from utils import create_query
+from utils import create_query, get_query_results
 
-DB_HOST = config.DB_HOST
-DB_USER = config.DB_USER
-DB_PASS = config.DB_PASS
-DB_NAME = config.DB_NAME
-DB_PORT = config.DB_PORT
-conn = mysql.connector.connect(
-    host=DB_HOST,
-    user=DB_USER,
-    password=DB_PASS,
-    database=DB_NAME,
-    port=DB_PORT
-)
-cursor = conn.cursor()
 app = Flask(__name__)
 
 
@@ -25,12 +10,11 @@ app = Flask(__name__)
 
 @app.route('/api/subjects', methods=['GET'])
 def get_subjects():
-    query_constructor = QueryConstructor()
-    query_constructor.select('*')
-    query_constructor.from_table('subjects')
-    query_string = query_constructor.get_query_string()
-    cursor.execute(query_string)
-    subjects = cursor.fetchall()
+    query_constructor = create_query(
+        select=[" * "],
+        from_table=["subjects"] 
+    )
+    subjects = get_query_results(query_constructor)
 
     return_list = []
 
@@ -49,10 +33,7 @@ def get_forms_list():
         from_table=["forms"],
         where=[("subject_id", subject_id)]
     )
-    query_string = query_constructor.get_query_string()
-    query_params = query_constructor.get_query_params()
-    cursor.execute(query_string, query_params)
-    forms = cursor.fetchall()
+    forms = get_query_results(query_constructor)
 
     return_list = []
     for form_id, form_name in forms: 
@@ -71,10 +52,7 @@ def get_topics():
     query_constructor.select('*')
     query_constructor.from_table('topics')
     query_constructor.where_eq('form_id', form_id)
-    query_string = query_constructor.get_query_string()
-    query_params = query_constructor.get_query_params()
-    cursor.execute(query_string, query_params)
-    topics = cursor.fetchall()
+    topics = get_query_results(query_constructor)
     
 
     return_list = []
@@ -113,12 +91,7 @@ def get_questions():
     main_query_constructor.with_cte('filtered_objectives', filtered_objectives_CTE)
     main_query_constructor.with_cte('filtered_questions', filtered_questions_CTE)
 
-    query_string = main_query_constructor.get_query_string()
-    query_params = main_query_constructor.get_query_params()
-
-    print(query_string, query_params)
-    cursor.execute(query_string, query_params)
-    questions = cursor.fetchall()
+    questions = get_query_results(main_query_constructor)
     question_map = {}
 
     for question_id, question_text, answer_id, answer_text, answer_type in questions: 
