@@ -1,5 +1,5 @@
 from openai import OpenAI
-import config
+import backend.config
 
 client = OpenAI(api_key=config.open_ai_api_key)
 PROMPT_FILE = "open-ai/dev_prompt.txt"

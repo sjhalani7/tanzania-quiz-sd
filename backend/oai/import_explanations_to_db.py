@@ -1,4 +1,5 @@
-from . import model
+from backend.oai import model
+
 from backend.utils import create_query, get_query_results, update_table_query, execute_update_query
 import json
 import re
