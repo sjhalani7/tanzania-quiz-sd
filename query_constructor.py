@@ -141,6 +141,10 @@ class QueryConstructor:
             self.build()
         return self._query
     
+    def set_query_string(self, query_str):
+        self._query = query_str
+        return self
+    
     def get_query_params(self):
         if self._query == "":
             self.build()
