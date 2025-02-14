@@ -82,7 +82,7 @@ def get_questions():
     main_query_constructor = create_query(
         select=["answers.question_id", "question_text", "answer_id", "answer_text", "answer_type"], 
         from_table=['filtered_questions'], 
-        join= [("answers", "answers.question_id = filtered_questions.question_id", "INNER JOIN")],
+        join=[("answers", "answers.question_id = filtered_questions.question_id", "INNER JOIN")]
     )
 
     main_query_constructor.where_raw('answer_type = %s OR answer_type="right"', difficulty)
