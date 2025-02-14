@@ -1,5 +1,6 @@
 from query_constructor import QueryConstructor
 import mysql.connector
+from typing import Tuple
 import config
 DB_HOST = config.DB_HOST
 DB_USER = config.DB_USER
@@ -37,3 +38,21 @@ def get_query_results(query_constructor):
     cursor.execute(query_string, query_params)
     query_result = cursor.fetchall()
     return query_result
+
+def update_table_query(table_name:str, set_query: Tuple[str, str], where_condition: Tuple[str, str]):
+    query_string = f"""
+        UPDATE {table_name}
+        SET {set_query[0]} = "{set_query[1]}"
+        WHERE {where_condition[0]} = {where_condition[1]};
+        """
+    query_constructor = QueryConstructor()
+    query_constructor.set_query_string(query_string)
+    print(query_string)
+    return query_constructor
+
+def execute_update_query(query_constructor):
+    query_string = query_constructor.get_query_string()
+    query_params = query_constructor.get_query_params()
+    cursor.execute(query_string, query_params)
+    conn.commit()
+    print(cursor.rowcount)
