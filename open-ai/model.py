@@ -2,10 +2,10 @@ from openai import OpenAI
 import config
 
 client = OpenAI(api_key=config.open_ai_api_key)
+PROMPT_FILE = "open-ai/dev_prompt.txt"
 
-
-def query_model(prompt_file, question_query):
-    with open(prompt_file, 'r') as file:  
+def query_model(question_query):
+    with open(PROMPT_FILE, 'r') as file:  
         developer_query = file.read()
     
     completion = client.chat.completions.create(
@@ -24,10 +24,6 @@ def query_model(prompt_file, question_query):
             "schema": {
                 "type": "object",
                 "properties": {
-                "question_id": {
-                    "type": "int",
-                    "description": "Interal question_id of question"
-                },
                 "question": {
                     "type": "string",
                     "description": "The question being asked."
@@ -52,6 +48,6 @@ def query_model(prompt_file, question_query):
         }
     }
     )
-    return completion.choices[0]
+    return completion.choices[0].message.content
 
         
