@@ -1,8 +1,8 @@
 from openai import OpenAI
-import backend.config
+import backend.config as config
 
 client = OpenAI(api_key=config.open_ai_api_key)
-PROMPT_FILE = "open-ai/dev_prompt.txt"
+PROMPT_FILE = "backend/oai/dev_prompt.txt"
 
 def query_model(question_query):
     with open(PROMPT_FILE, 'r') as file:  

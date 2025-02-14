@@ -1,7 +1,9 @@
-from query_constructor import QueryConstructor
+from backend.query_constructor import QueryConstructor
 import mysql.connector
 from typing import Tuple
-import config
+import backend.config as config
+
+
 DB_HOST = config.DB_HOST
 DB_USER = config.DB_USER
 DB_PASS = config.DB_PASS

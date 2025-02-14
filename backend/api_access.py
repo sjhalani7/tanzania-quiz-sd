@@ -1,6 +1,6 @@
 from flask import Flask, request
 import json
-from query_constructor import QueryConstructor
+from backend.query_constructor import QueryConstructor
 from backend.utils import create_query, get_query_results
 
 app = Flask(__name__)
