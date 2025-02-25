@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, ActivityIndicator, Button } from "react-native";
 import { useRouter } from "expo-router";
 
-const API_URL = "http://10.0.2.2:5001/questions";
+const API_URL = "http://127.0.0.1:5000/api/questions";
 
 export default function QuestionViewerFR() {
     const [questions, setQuestions] = useState(null);

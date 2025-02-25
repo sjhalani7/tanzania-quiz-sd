@@ -2,9 +2,10 @@ from flask import Flask, request
 import json
 from backend.query_constructor import QueryConstructor
 from backend.utils import create_query, get_query_results
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 
 #API for given a topic (topic number) and difficulty, grab questions(paginate) with answers
 

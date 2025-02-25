@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
 import {useLocalSearchParams, useRouter} from "expo-router";
 
-const API_URL = "http://10.0.2.2:5001/forms";
+const API_URL = "http://127.0.0.1:5000/api/subjects";
 
 export default function FormSelection() {
     const [forms, setFroms] = useState([]);
@@ -20,6 +20,7 @@ export default function FormSelection() {
                     return;
                 }
                 const data = await response.json();
+                console.log(data);
                 setFroms(data);
             } catch (err) {
                 setError(err.message);
