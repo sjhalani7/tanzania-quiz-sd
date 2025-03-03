@@ -103,14 +103,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         borderRadius: 10,
         marginVertical: 8,
-        width: '80%',
+        minWidth: 120, 
         alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     subjectText: {
         color: "#FFFFFF",
         fontSize: 16,
         fontWeight: "bold",
         textAlign: "center",
+        flexShrink: 1,
     },
     loader: {
         flex: 1,
