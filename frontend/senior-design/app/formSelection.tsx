@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
 import {useLocalSearchParams, useRouter} from "expo-router";
 
-const API_URL = "http://127.0.0.1:5000/api/subjects";
+const API_URL = "http://127.0.0.1:5000/api/forms";
 
 export default function FormSelection() {
     const [forms, setFroms] = useState([]);
@@ -14,7 +14,7 @@ export default function FormSelection() {
     useEffect(() => {
         const fetchForms = async () => {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(API_URL + "?subject_id="+ subject_num);
                 if (!response.ok) {
                     setError('Failed to fetch subjects');
                     return;

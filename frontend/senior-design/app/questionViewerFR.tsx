@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, ActivityIndicator, Button } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 const API_URL = "http://127.0.0.1:5000/api/questions";
 
@@ -13,11 +13,12 @@ export default function QuestionViewerFR() {
     const [showFeedback, setShowFeedback] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null);
     const router = useRouter();
+    const { topic_num, difficulty } = useLocalSearchParams();
 
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(API_URL + "?topic_id="+ topic_num + "&difficulty=" + difficulty);
                 if (!response.ok) {
                     throw new Error('Failed to fetch questions');
                 }

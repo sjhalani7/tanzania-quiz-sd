@@ -14,7 +14,8 @@ export default function TopicSelection() {
     useEffect(() => {
         const fetchTopics = async () => {
             try {
-                const response = await fetch(API_URL);
+                console.log(form_num)
+                const response = await fetch(API_URL + "?form_id=" + form_num);
                 if (!response.ok) {
                     setError('Failed to fetch subjects');
                     return;

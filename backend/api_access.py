@@ -8,6 +8,11 @@ app = Flask(__name__)
 CORS(app)
 
 #API for given a topic (topic number) and difficulty, grab questions(paginate) with answers
+difficulty_map = {
+    'Easy':'easy_wrong',
+    'Medium':'meh_wrong',
+    'Hard':'hard_wrong'
+}
 
 @app.route('/api/subjects', methods=['GET'])
 def get_subjects():
@@ -73,7 +78,7 @@ def get_questions():
     - Get topic, difficulty return questions
     """
     topic_id = request.args.get('topic_id')
-    difficulty = request.args.get('difficulty')
+    difficulty = difficulty_map[request.args.get('difficulty')]
 
     filtered_topic_CTE = create_query(select=["topic_id"], from_table=['topics'], where=[("topic_id", topic_id)])
     filtered_subtopics_CTE = create_query(select=["subtopic_id"], from_table=['subtopics'], join=[("filtered_topics", "filtered_topics.topic_id = subtopics.topic_id", "INNER JOIN")])
