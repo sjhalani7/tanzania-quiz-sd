@@ -1,6 +1,11 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-6NZWVXM5XR");
+
+ReactGA.send({ hitType: "pageview", page: "/index", title: "Home Page" });
 
 export default function HomeScreen() {
     const router = useRouter();

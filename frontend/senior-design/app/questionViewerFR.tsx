@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TextInput, ActivityIndicator, Button } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-6NZWVXM5XR");
+
+ReactGA.send({ hitType: "pageview", page: "/hard-questions", title: "Hard Questions" });
 
 const API_URL = "http://127.0.0.1:5000/api/questions";
 
