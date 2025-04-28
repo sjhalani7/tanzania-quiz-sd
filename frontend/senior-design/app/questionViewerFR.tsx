@@ -7,7 +7,7 @@ ReactGA.initialize("G-6NZWVXM5XR");
 
 ReactGA.send({ hitType: "pageview", page: "/hard-questions", title: "Hard Questions" });
 
-const API_URL = "http://127.0.0.1:5000/api/questions";
+const API_URL = "https://tetea.org/api/questions";
 
 export default function QuestionViewerFR() {
     const [questions, setQuestions] = useState(null);

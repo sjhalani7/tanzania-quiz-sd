@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
 import {useLocalSearchParams, useRouter} from "expo-router";
 
-const API_URL = "http://127.0.0.1:5000/api/forms";
+const API_URL = "https://tetea.org/api/forms";
 
 export default function FormSelection() {
     const [forms, setFroms] = useState([]);

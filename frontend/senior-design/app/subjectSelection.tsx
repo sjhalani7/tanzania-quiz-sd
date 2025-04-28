@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
 import { useRouter } from "expo-router";
 
-const API_URL = "http://127.0.0.1:5000/api/subjects";
+const API_URL = "https://tetea.org/api/subjects";
 
 export default function SubjectSelection() {
     const [subjects, setSubjects] = useState([]);
