@@ -111,7 +111,7 @@ def get_questions():
                     'answer_id': answer_id, 
                     'answer_text': answer_text,
                     'answer_type': answer_type,
-                    'answer_explanation': answer_explanation if answer_explanation else 'N/A'
+                    'answer_explanation': answer_explanation if answer_explanation else None
                 }
             )
     
