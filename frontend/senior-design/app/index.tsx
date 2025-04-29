@@ -15,7 +15,7 @@ export default function HomeScreen() {
             <Text style={styles.title}>Empowering Tanzanians through Education</Text>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => router.push("/subjectSelection")}
+                onPress={() => router.push("subjectSelection")}
             >
                 <Text style={styles.buttonText}>Start Studying</Text>
             </TouchableOpacity>
