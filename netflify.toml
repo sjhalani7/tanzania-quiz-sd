@@ -1,0 +1,9 @@
+[build]
+  publish = "web-build"    # or "public" / your output folder
+  command = "npm run build"  # whatever builds your web output
+
+[[redirects]]
+  from = "/app/*"
+  to   = "/app/index.html"
+  status = 200
+  force = true
