@@ -3,8 +3,13 @@
     echo "🏗️ Building in $(pwd)/frontend/senior-design" &&
     cd frontend/senior-design &&
     npm ci &&
-    echo "📦 Installed, now building web" &&
-    npx expo build:web --no-dev &&
-    echo "✅ Build done"
+    echo "📦 Installed, now exporting web" &&
+    npx expo export --platform web --no-dev &&
+    echo "✅ Export done"
   """
-  publish = "frontend/senior-design/web-build"
+  publish = "frontend/senior-design/static"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
