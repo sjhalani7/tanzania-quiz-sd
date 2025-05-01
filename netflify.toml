@@ -1,9 +1,0 @@
-[build]
-  # 1. cd into your Expo app
-  command = "cd frontend/senior-design && npm install && npm run build:web"
-  # 2. publish the Expo web output
-  publish = "frontend/senior-design/web-build"
-
-[dev]
-  # optional: if you ever use Netlify Dev to preview locally
-  command = "cd frontend/senior-design && npm run web"

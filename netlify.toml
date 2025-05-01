@@ -1,0 +1,10 @@
+[build]
+  # 1) Move into the Expo front-end
+  command = "echo \"🏗️ Building in $(pwd)/frontend/senior-design\" && cd frontend/senior-design && npm ci && echo \"📦 Installed, now building web\" && npm run build:web && echo \"✅ Build done\""
+  # 2) Publish whatever ends up in web-build
+  publish = "frontend/senior-design/web-build"
+
+
+[dev]
+  # optional: if you ever use Netlify Dev to preview locally
+  command = "cd frontend/senior-design && npm run web"
