@@ -97,6 +97,7 @@ export default function QuestionViewerMC() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{isCorrect ? 'Correct!' : `Wrong Answer! The correct answer is: ${correctAnswer.answer_text}`}</Text>
+                <Text style={styles.explanation}>{`Explanation: ${correctAnswer.answer_explanation}`}</Text>
                 <Button title="Next Question" onPress={handleNextQuestion} />
             </View>
         );
@@ -132,6 +133,13 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         color: "#000",
+        marginBottom: 20,
+    },
+    explanation:{
+        textAlign: "center",
+        color: "#000",
+        fontSize: 16,
+        marginTop: 20,
         marginBottom: 20,
     },
     formItem: {
