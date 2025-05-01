@@ -8,8 +8,3 @@
     echo "✅ Build done"
   """
   publish = "frontend/senior-design/web-build"
-
-
-[dev]
-  # optional: if you ever use Netlify Dev to preview locally
-  command = "cd frontend/senior-design && npm run web"
