@@ -4,7 +4,7 @@
     cd frontend/senior-design &&
     npm ci &&
     echo "📦 Installed, now exporting web" &&
-    npx expo export --platform web --no-dev &&
+    npx expo export --platform web &&
     echo "✅ Export done"
   """
   publish = "frontend/senior-design/static"
