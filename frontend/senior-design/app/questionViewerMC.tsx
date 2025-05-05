@@ -30,7 +30,14 @@ export default function QuestionViewerMC() {
                     throw new Error('Failed to fetch questions');
                 }
                 const data = await response.json();
-                setQuestions(data);
+
+                const shuffledData = Object.entries(data).sort(() => Math.random() - 0.5);
+                const randomizedData: { [key: string]: any } = {};
+                shuffledData.forEach(([_, value], index) => {
+                    randomizedData[(index + 1).toString()] = value;
+                });
+
+                setQuestions(randomizedData);
             } catch (err) {
                 setError(err.message);
             } finally {
