@@ -51,8 +51,11 @@ export default function QuestionViewerTF() {
         if (questions && questions[Object.keys(questions)[currentIndex]]) {
             const currentQuestion = questions[Object.keys(questions)[currentIndex]];
             const rightAnswer = currentQuestion.answers.find(answer => answer.answer_type === 'right');
-            const wrongAnswer = currentQuestion.answers.find(answer => answer.answer_type === 'easy_wrong');
-            const newOptions = rightAnswer && wrongAnswer ? [rightAnswer, wrongAnswer] : [];
+            const wrongAnswers = currentQuestion.answers.filter(answer => answer.answer_type === 'easy_wrong');
+            console.log(wrongAnswers);
+            const selectedWrongAnswer = wrongAnswers.sort(() => Math.random() - 0.5).slice(0, 1);
+            console.log(selectedWrongAnswer);
+            const newOptions = rightAnswer && selectedWrongAnswer ? [rightAnswer, selectedWrongAnswer[0]] : [];
             setOptions(shuffleArray(newOptions));
         }
     }, [questions, currentIndex]);
