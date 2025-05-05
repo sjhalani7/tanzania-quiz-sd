@@ -31,7 +31,12 @@ export default function QuestionViewerTF() {
                     throw new Error('Failed to fetch questions');
                 }
                 const data = await response.json();
-                setQuestions(data);
+                const shuffledData = Object.entries(data).sort(() => Math.random() - 0.5);
+                const randomizedData: { [key: string]: any } = {};
+                shuffledData.forEach(([_, value], index) => {
+                    randomizedData[(index + 1).toString()] = value;
+                });
+                setQuestions(randomizedData);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -100,7 +105,7 @@ export default function QuestionViewerTF() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{isCorrect ? 'Correct!' : `Wrong Answer! The correct answer is: ${rightAnswer.answer_text}`}</Text>
-                <Text style={styles.explanation}>{`Explanation: ${correctAnswer.answer_explanation}`}</Text>
+                <Text style={styles.explanation}>{`Explanation: ${rightAnswer.answer_explanation}`}</Text>
                 <Button title="Next Question" onPress={handleNextQuestion} />
             </View>
         );
