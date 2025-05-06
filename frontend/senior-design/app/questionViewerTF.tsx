@@ -31,7 +31,12 @@ export default function QuestionViewerTF() {
                     throw new Error('Failed to fetch questions');
                 }
                 const data = await response.json();
-                setQuestions(data);
+                const shuffledData = Object.entries(data).sort(() => Math.random() - 0.5);
+                const randomizedData: { [key: string]: any } = {};
+                shuffledData.forEach(([_, value], index) => {
+                    randomizedData[(index + 1).toString()] = value;
+                });
+                setQuestions(randomizedData);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -46,8 +51,11 @@ export default function QuestionViewerTF() {
         if (questions && questions[Object.keys(questions)[currentIndex]]) {
             const currentQuestion = questions[Object.keys(questions)[currentIndex]];
             const rightAnswer = currentQuestion.answers.find(answer => answer.answer_type === 'right');
-            const wrongAnswer = currentQuestion.answers.find(answer => answer.answer_type === 'easy_wrong');
-            const newOptions = rightAnswer && wrongAnswer ? [rightAnswer, wrongAnswer] : [];
+            const wrongAnswers = currentQuestion.answers.filter(answer => answer.answer_type === 'easy_wrong');
+            console.log(wrongAnswers);
+            const selectedWrongAnswer = wrongAnswers.sort(() => Math.random() - 0.5).slice(0, 1);
+            console.log(selectedWrongAnswer);
+            const newOptions = rightAnswer && selectedWrongAnswer ? [rightAnswer, selectedWrongAnswer[0]] : [];
             setOptions(shuffleArray(newOptions));
         }
     }, [questions, currentIndex]);
@@ -100,6 +108,7 @@ export default function QuestionViewerTF() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{isCorrect ? 'Correct!' : `Wrong Answer! The correct answer is: ${rightAnswer.answer_text}`}</Text>
+                <Text style={styles.explanation}>{`Explanation: ${rightAnswer.answer_explanation}`}</Text>
                 <Button title="Next Question" onPress={handleNextQuestion} />
             </View>
         );
@@ -135,6 +144,13 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         color: "#000",
+        marginBottom: 20,
+    },
+    explanation:{
+        textAlign: "center",
+        color: "#000",
+        fontSize: 16,
+        marginTop: 20,
         marginBottom: 20,
     },
     formItem: {

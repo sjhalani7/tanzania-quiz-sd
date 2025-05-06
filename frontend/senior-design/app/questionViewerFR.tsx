@@ -29,7 +29,13 @@ export default function QuestionViewerFR() {
                     throw new Error('Failed to fetch questions');
                 }
                 const data = await response.json();
-                setQuestions(data);
+                const shuffledData = Object.entries(data).sort(() => Math.random() - 0.5);
+                const randomizedData: { [key: string]: any } = {};
+                shuffledData.forEach(([_, value], index) => {
+                    randomizedData[(index + 1).toString()] = value;
+                });
+                console.log(randomizedData);
+                setQuestions(randomizedData);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -74,11 +80,11 @@ export default function QuestionViewerFR() {
 
     const questionKeys = Object.keys(questions);
     const currentQuestion = questions[questionKeys[currentIndex]];
-    const correctAnswer = currentQuestion.answers.find(answer => answer.answer_type === 'right').answer_text;
+    const correctAnswer = currentQuestion.answers.find(answer => answer.answer_type === 'right');
 
     const handleSubmit = () => {
         if (!userInput.trim()) return;
-        let closeVal = levenshteinDistance(userInput.trim().toLowerCase(), correctAnswer.toLowerCase());
+        let closeVal = levenshteinDistance(userInput.trim().toLowerCase(), correctAnswer.answer_text.toLowerCase());
         if (closeVal == 0){
             setIsCorrect(true);
         }else if(closeVal <= 2){
@@ -104,7 +110,8 @@ export default function QuestionViewerFR() {
     if (showFeedback) {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{isCorrect ? 'Correct!' : (isClose ? `Close! The correct answer is: ${correctAnswer}`:`Wrong Answer! The correct answer is: ${correctAnswer}`)}</Text>
+                <Text style={styles.title}>{isCorrect ? 'Correct!' : (isClose ? `Close! The correct answer is: ${correctAnswer.answer_text}`:`Wrong Answer! The correct answer is: ${correctAnswer}`)}</Text>
+                <Text style={styles.explanation}>{`Explanation: ${correctAnswer.answer_explanation}`}</Text>
                 <Button title="Next Question" onPress={handleNextQuestion} />
             </View>
         );
@@ -147,6 +154,13 @@ const styles = StyleSheet.create({
         width: '80%',
         marginBottom: 10,
         paddingHorizontal: 10,
+    },
+    explanation:{
+        textAlign: "center",
+        color: "#000",
+        fontSize: 16,
+        marginTop: 20,
+        marginBottom: 20,
     },
     loader: {
         flex: 1,
