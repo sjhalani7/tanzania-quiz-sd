@@ -3,20 +3,23 @@ import mysql.connector
 from typing import Tuple
 import backend.config as config
 
-
 DB_HOST = config.DB_HOST
 DB_USER = config.DB_USER
 DB_PASS = config.DB_PASS
 DB_NAME = config.DB_NAME
 DB_PORT = config.DB_PORT
-conn = mysql.connector.connect(
+
+def create_connection():
+    conn = mysql.connector.connect(
     host=DB_HOST,
     user=DB_USER,
     password=DB_PASS,
     database=DB_NAME,
     port=DB_PORT
-)
-cursor = conn.cursor()
+    )
+    cursor = conn.cursor()
+    return conn, cursor
+conn, cursor = create_connection()
 
 def create_query(select:list, from_table:list, where:list=[], join:list=[]):
     query = QueryConstructor()
@@ -35,6 +38,7 @@ def create_query(select:list, from_table:list, where:list=[], join:list=[]):
 
 
 def get_query_results(query_constructor):
+    conn.ping(reconnect=True, attempts=3, delay=5)
     query_string = query_constructor.get_query_string()
     query_params = query_constructor.get_query_params()
     cursor.execute(query_string, query_params)
@@ -53,6 +57,7 @@ def update_table_query(table_name:str, set_query: Tuple[str, str], where_conditi
     return query_constructor
 
 def execute_update_query(query_constructor):
+    conn.ping(reconnect=True, attempts=3, delay=5)
     query_string = query_constructor.get_query_string()
     query_params = query_constructor.get_query_params()
     cursor.execute(query_string, query_params)
