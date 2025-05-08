@@ -21,7 +21,7 @@ export default function FormSelection() {
                 }
                 const data = await response.json();
                 console.log(data);
-                setFroms(data);
+                setFroms([data[0],data[1]]);
             } catch (err) {
                 setError(err.message);
             } finally {
