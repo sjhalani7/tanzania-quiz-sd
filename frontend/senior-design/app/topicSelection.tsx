@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+        paddingTop: 50,
         paddingHorizontal: 20,
     },
     title: {
