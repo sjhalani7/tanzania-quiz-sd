@@ -69,7 +69,7 @@ export default function SubjectSelection() {
                 keyExtractor={(item) => item.subject_id.toString()}
                 ListEmptyComponent={<Text>No Subjects Available</Text>}
                 contentContainerStyle={styles.flatListContainer}
-                style={{ width: '100%' }}
+                style={{ width: '100%', flex: 1 }}
             />
         </View>
     );
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+        paddingTop: 50,
         paddingHorizontal: 20,
     },
     title: {

@@ -110,7 +110,7 @@ export default function QuestionViewerFR() {
     if (showFeedback) {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{isCorrect ? 'Correct!' : (isClose ? `Close! The correct answer is: ${correctAnswer.answer_text}`:`Wrong Answer! The correct answer is: ${correctAnswer}`)}</Text>
+                <Text style={styles.title}>{isCorrect ? 'Correct!' : (isClose ? `Close! The correct answer is: ${correctAnswer.answer_text}`:`Wrong Answer! The correct answer is: ${correctAnswer.answer_text}`)}</Text>
                 <Text style={styles.explanation}>{`Explanation: ${correctAnswer.answer_explanation}`}</Text>
                 <Button title="Next Question" onPress={handleNextQuestion} />
             </View>
